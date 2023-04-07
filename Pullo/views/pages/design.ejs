@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>DESIGN</title>
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+	<!-- header section start -->
+	<%- include('../partials/navbar'); %>
+	<!-- new collection section start -->
+  <div class="collection_text">BEST For DESIGN</div>
+   <div class="about_main layout_padding">
+    <div class="collection_section">
+    	<div class="container">
+    		<h1 class="new_text"><strong>Powerful Design Workstations</strong></h1>
+    	    <p class="consectetur_text">our design workstations are equipped with top-of-the-line hardware and software, delivering unparalleled performance and capabilities that exceed the demands of even the most demanding design professionals on the market</p>
+    	</div>
+    </div>
+    <div class="layout_padding gallery_section" >
+        <div class="container">
+            <div class="row">
+                <% pc.forEach(pc=> { %>
+                    <div class="col-sm-4">
+                        <div class="best_shoes">
+                            <a href="/pc/<%= pc.id %>">
+                                <p class="best_text"><%=pc.namepc%></p> 
+                                <% const imgpc = Buffer.from(pc.imgpc).toString('base64'); %>
+                                <div class="shoes_icon"><img src="data:image/jpg;base64,<%=imgpc%> "></div> 
+                                <div class="star_text">
+                                    <div class="left_part">
+                                        <ul>
+                                            <% for (let i = 0; i < pc.fbpc; i++) { %>
+                                                <li><a><img src="images/star-icon.png"></a></li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                    <div class="right_part">
+                                        <div class="shoes_price"><span style="color: gray; font-size: 15px; text-decoration: line-through;"><%= pc.pricepcold.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></span></div>
+                                        <div class="shoes_price"><span style="color: #5d00f1; font-size: 15px;"><%= pc.pricepc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></span></div>
+                                        <button class="add-to-cart seemore_bt" data-product-id="<%= pc.id %>">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="center-div success-message "></div>
+        </div>
+    </div>
+    </div>
+	<!-- new collection section end -->
+	<!-- section footer start -->
+    <%- include('../partials/footer'); %>
+	<!-- section footer end -->
+
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- javascript --> 
+    <script src="js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+		$(document).ready(function() {
+		  // Attach a click event handler to the "Add to Cart" button
+		  $('.add-to-cart').click(function() {
+			// Get the product ID from a data attribute on the button
+			let id = $(this).data('product-id');
+	  
+			// Send an AJAX request to the "add to cart" route
+			$.ajax({
+			  type: 'POST',
+			  url: '/cart/add/' + id
+			});
+			$(document).trigger('cartUpdated');
+			$('.success-message').text('Product added to cart!');
+			$('.success-message').fadeIn(); // Display the success message
+            setTimeout(function() {
+              $('.success-message').fadeOut(); // Hide the success message after 3 seconds
+            }, 3000);
+			
+		  });
+		});
+	  </script>
+    <script>
+      $(document).ready(function() {
+// Function to update the cart count
+function updateCartCount() {
+  $.ajax({
+    type: 'GET',
+    url: '/cart/count',
+    success: function(data) {
+      // Update the cart icon with the count
+      $('#cart-count').text(data.count);
+    },
+    error: function() {
+      console.error('Error fetching cart count');
+    }
+  });
+}
+
+// Call the updateCartCount function on page load and on every cart update
+updateCartCount();
+$(document).on('cartUpdated', updateCartCount);
+});
+    </script>
+   </body>
+</html>

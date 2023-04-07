@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>CART</title>
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="./css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+	<!-- header section start -->
+	<%- include('../partials/navbar'); %>
+   <!-- header section end -->
+
+      <!-- contact section start -->
+    <div class="collection_text">Cart</div>
+    <div class="layout_padding contact_section">
+    	
+    </div>
+    <div class="container">
+      <div class="cart">
+         <div class=" cart-header">
+            <h2 class="cart-title">Your Cart</h2>
+            <% function calculateTotal(cartItems) { %>
+               <% let total = 0; %>
+               <% cartItems.forEach(function(item) { %>
+                 <% total += item.price * item.quantity; %>
+               <% }); %>
+               <% return total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }); %>
+             <% } %>
+            <span class="cart-total">Total: <%= calculateTotal(cartItems) %></span>
+         </div>
+         
+         <% if (cartCount === 0) { %>
+         <p>Your cart is empty</p>
+         <% } else { %>
+         <% cartItems.forEach(function(product) { %>
+            <div class="product">
+               <% const imgpc = Buffer.from(product.imgpc).toString('base64'); %> 
+               <img class="product-image" src="data:image/jpg;base64,<%=imgpc%> " atl="<%= product.productname %>">
+               <div class="product-info">
+                  <h3 class="product-name"><%= product.productname %></h3>
+                  <p class="product-price">Price: <%= product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></p>
+                  <p class="product-quantity">Quantity: <%= product.quantity %></p>
+               </div>
+                  <button class="product-remove" data-product-id="<%= product.productid %>" >Remove</button>
+            </div>
+         <% }); %>
+         <% } %>
+         <% if(cartItems.length > 0) { %>
+            <div class="checkout">
+               <button id="checkout-button" class="checkout-button">Checkout</button>
+            </div>
+         <% } %>
+         <div class="checkout-notification">Payment successful with <%=calculateTotal(cartItems)%>  </div>
+      </div>
+      
+   </div>
+
+   	<!-- contact section end -->
+	<!-- section footer start -->
+   <%- include('../partials/footer'); %>
+	<!-- section footer end -->
+
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <!-- javascript --> 
+      <script src="js/owl.carousel.js"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script>
+         $(document).ready(function() {
+           // Attach click event handler to checkout button
+           $('#checkout-button').click(function() {
+              if (confirm("Are you sure to check out?")) {
+             // Send an AJAX request to the "checkout" route
+             $.ajax({
+               type: 'POST',
+               url: '/cart/checkout'
+             });
+           
+             // After the checkout process is completed
+              $('.checkout-notification').fadeIn().delay(2000).fadeOut();
+              setTimeout(function() {
+              location.reload();
+              }, 2500);
+           }
+           });
+           
+         });
+      </script>
+      <script>
+         $(document).ready(function() {
+   // Function to update the cart count
+   function updateCartCount() {
+   $.ajax({
+      type: 'GET',
+      url: '/cart/count',
+      success: function(data) {
+         // Update the cart icon with the count
+         $('#cart-count').text(data.count);
+      },
+      error: function() {
+         console.error('Error fetching cart count');
+      }
+   });
+   }
+
+   // Call the updateCartCount function on page load and on every cart update
+   updateCartCount();
+   $(document).on('cartUpdated', updateCartCount);
+});
+
+      </script>
+      <script>
+         
+               $(document).ready(function() {
+         // Attach a click event handler to the "Add to Cart" button
+                  $('.product-remove').click(function() {
+                     if (confirm("Do you want to remove this product?")) {
+                  
+                        // Get the product ID from a data attribute on the button
+                        let id = $(this).data('product-id');
+                  
+                        // Send an AJAX request to the "add to cart" route
+                        $.ajax({
+                        type: 'POST',
+                        url: '/cart/remove/' + id,
+                        success: function(datas) {
+                           // If the request was successful, update the cart icon with a notification
+                           if (datas.success) {
+                           //   let cartCount = parseInt($('#cart-count').text());
+                           //   $('#cart-count').text(cartCount + 1);
+                              
+                           }
+                        }
+                     });
+                     }
+                  location.reload()
+                  });
+               });
+            
+      </script>
+   </body>
+</html>

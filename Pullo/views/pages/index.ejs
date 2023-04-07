@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>HARI PC</title>
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="/css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" type="text/css" href="/css/owl.theme.default.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/jwl.carousel.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/oquery.fancybox.min.css" media="screen">
+
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+	<!-- header section start -->
+	<%- include('../partials/navbar'); %>
+	<div class="header_section">
+		<div class="banner_section">
+			<div class="container-fluid">
+				<section class="slide-wrapper">
+					<div class="container-fluid">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<div class="row">
+										<div class="col-sm-2 padding_0">
+										</div>
+										<% const info2 = pc[2]%>
+										<div class="col-sm-5">
+											<div class="banner_taital">
+												<h1 class="banner_text">New Gamming PC </h1>
+												<h1 class="mens_text"><strong>Men's Like Plex</strong></h1>
+												<p class="lorem_text">ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+												<a href="/pc/<%=info2.id%>"><button class="buy_bt">Buy Now</button></a>
+												<button class="more_bt" onclick="scrollToMyDiv()">See More</button>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="shoes_img"><img src="images/picinbanner-old.png"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>			
+			</div>
+		</div>
+	</div>
+	<!-- header section end -->
+	<!-- new collection section start -->
+    <div class="layout_padding collection_section">
+    	<div class="container">
+    	    <h1 class="new_text"><strong>New  Collection</strong></h1>
+    	    <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+    	    <div class="collection_section_2">
+    	    	<div class="row">
+    	    		<div class="col-md-6">
+    	    			<div class="about-img">
+							<% const info7 = pc[7]; %>
+    	    				<a class="new_bt" href="/pc/<%=info7.id%>">New</a>
+							
+							<% const imgpc7 = Buffer.from(info7.imgpc).toString('base64'); %>
+							<div class="shoes-img"><img src="data:image/jpg;base64,<%=imgpc7%> "></div> 
+    	    				<p class="sport_text"><%= info7.namepc %></p>
+    	    				<div class="dolar_text"><strong style="color: #f12a47;"><%=info7.pricepc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong> </div>
+    	    				<div class="star_icon">
+    	    					<ul>
+    	    						<% for (let i = 0; i < info7.fbpc; i++) { %>
+										<li><a><img src="images/star-icon.png"></a></li>
+									<% } %>
+    	    					</ul>
+    	    				</div>
+    	    			</div>
+    	    			<button class="seemore_bt" ><a onclick="scrollToMyDiv()">See More</a></button>
+    	    		</div>
+					<% const info5 = pc[5]; %>
+					<a href="/pc/<%=info5.id%>">
+						<div class="col-md-6">
+							<div class="about-img2">
+								<% const imgpc5 = Buffer.from(info5.imgpc).toString('base64'); %>
+								<div class="shoes-img2"><img src="data:image/jpg;base64,<%=imgpc5%> "></div>
+								<p class="sport_text"><%= info5.namepc %></p>
+								<div class="dolar_text"><strong style="color: #f12a47;"><%=info5.pricepc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong> </div>
+								<div class="star_icon">
+									<ul>
+										<% for (let i = 0; i < info5.fbpc; i++) { %>
+											<li><a><img src="images/star-icon.png"></a></li>
+										<% } %>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</a>
+    	    	</div>
+    	    </div>
+    	</div>
+    </div>
+    <div class="collection_section">
+    	<div class="container">
+    		<h1 class="new_text"><strong>Design</strong></h1>
+    	    <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+    	</div>
+    </div>
+    <div class="collectipn_section_3 layuot_padding">
+		<% const info4 = pc[4]; %>
+    	<div class="container">
+    		<div class="racing_shoes">
+    			<div class="row">
+    				<div class="col-md-8">
+						<% const imgpc4 = Buffer.from(info4.imgpc).toString('base64'); %>
+    					<div class="shoes-img3"><img src="data:image/jpg;base64,<%=imgpc4%> "></div>
+    				</div>
+    				<div class="col-md-4">
+    					<div class="sale_text"><strong>Sale <br><span style="color: #0a0506;"><%=info4.namepc %></span></strong></div>
+    					<div class="number_text"><strong><span style="color: #0a0506"><%=info4.pricepc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })%></span></strong></div>
+    					<a href="/pc/<%=info4.id%>"><button class="seemore">See More</button></a>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="collection_section layout_padding" id="main">
+    	<div class="container">
+    		<h1 class="new_text"><strong>New Arrivals Products</strong></h1>
+    	    <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+    	</div>
+    </div>
+	<!-- new collection section end -->
+	<!-- New Arrivals section start -->
+    <div class="layout_padding gallery_section" >
+    	<div class="container">
+    		<div class="row">
+				<% pc.forEach(pc=> { %>
+					<div class="col-sm-4">
+						<div class="best_shoes">
+							<a href="/pc/<%= pc.id %>">
+								<p class="best_text"><%=pc.namepc%></p> 
+								<% const imgpc = Buffer.from(pc.imgpc).toString('base64'); %>
+								<div class="shoes_icon"><img src="data:image/jpg;base64,<%=imgpc%> "></div> 
+								<div class="star_text">
+									<div class="left_part">
+										<ul>
+											<% for (let i = 0; i < pc.fbpc; i++) { %>
+												<li><a><img src="images/star-icon.png"></a></li>
+											<% } %>
+										</ul>
+									</div>
+									<div class="right_part">
+										<div class="shoes_price"><span style="color: gray; font-size: 15px; text-decoration: line-through;"><%= pc.pricepcold.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></span></div>
+										<div class="shoes_price"><span style="color: #5d00f1; font-size: 15px;"><%= pc.pricepc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></span></div>
+										<button class="add-to-cart seemore_bt" data-product-id="<%= pc.id %>">Add to Cart</button>
+										
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				<% }) %>
+				<div class="center-div success-message "></div>
+			</div>
+    	</div>
+    </div>
+   	<!-- New Arrivals section end -->
+	<!-- section footer start -->
+    <%- include('../partials/footer'); %>
+	<!-- section footer end -->
+	
+	<!-- Javascript files-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="js/plugin.js"></script>
+	<!-- sidebar -->
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/custom.js"></script>
+	<!-- javascript --> 
+	<script src="js/owl.carousel.js"></script>
+	<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		// Attach a click event handler to the "Add to Cart" button
+		$('.add-to-cart').click(function() {
+		// Get the product ID from a data attribute on the button
+		let id = $(this).data('product-id');
+	
+		// Send an AJAX request to the "add to cart" route
+		$.ajax({
+			type: 'POST',
+			url: '/cart/add/' + id
+		});
+		$(document).trigger('cartUpdated');
+		$('.success-message').text('Product added to cart!');
+		$('.success-message').fadeIn(); // Display the success message
+		setTimeout(function() {
+			$('.success-message').fadeOut(); // Hide the success message after 3 seconds
+		}, 3000);
+		
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function() {
+		// Function to update the cart count
+		function updateCartCount() {
+			$.ajax({
+			type: 'GET',
+			url: '/cart/count',
+			success: function(data) {
+				// Update the cart icon with the count
+				$('#cart-count').text(data.count);
+			},
+			error: function() {
+				console.error('Error fetching cart count');
+			}
+			});
+		}
+// Call the updateCartCount function on page load and on every cart update
+		updateCartCount();
+		$(document).on('cartUpdated', updateCartCount);
+});
+	</script>
+	<script>
+		function scrollToMyDiv() {
+		  var myDiv = document.getElementById("main");
+		  myDiv.scrollIntoView();
+		}
+	</script>
+
+   </body>
+</html>
